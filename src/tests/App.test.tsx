@@ -4,10 +4,10 @@ import {expect, it, describe, beforeEach, vi} from "vitest";
 import Header from "../modules/Header/Header.tsx";
 import { renderWithMantine } from './render';
 import Cart from "../modules/Header/components/Cart/Cart.tsx";
-import VegetableContextProvider from "../contexts/VegetableContext.tsx";
 import {userEvent} from '@testing-library/user-event';
 import Catalog from "../modules/catalog/Catalog.tsx";
 import ky from "ky";
+import {Popover} from "@mantine/core";
 
 
 Object.defineProperty(window, 'matchMedia', {
@@ -43,9 +43,7 @@ describe("Testing component Cart", () => {
 
   beforeEach(() =>
     renderWithMantine(
-      <VegetableContextProvider>
        <Cart />
-      </VegetableContextProvider>
     ));
 
   it('Render button Cart', async () => {
@@ -79,10 +77,10 @@ describe("Testing component Catalog and testing interaction components", () => {
 
   beforeEach(() =>{
     renderWithMantine(
-      <VegetableContextProvider>
+      <Popover>
         <Catalog />
         <Cart />
-      </VegetableContextProvider>
+      </Popover>
     );
 
       (ky.get as any).mockReturnValue({
