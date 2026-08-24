@@ -11,10 +11,15 @@ import '@fontsource/inter/800.css';
 import './styles/index.scss';
 import './styles/normalize.scss'
 
+import {Provider} from "react-redux";
+import {store} from "./store/store.ts";
+
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </StrictMode>,
 )

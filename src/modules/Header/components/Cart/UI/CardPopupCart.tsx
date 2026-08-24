@@ -10,14 +10,14 @@ import {
 import Minus from "../../../../../assets/icons/Minus.svg?react";
 import Plus from "../../../../../assets/icons/Plus.svg?react";
 import type { Vegetables } from "../../../../../types.tsx";
-
-type CardPopupCartProps = Vegetables & {
-  decrease: (id: number) => void;
-  increase: (id: number) => void;
-};
+import {increaseQuantity, decreaseQuantity} from "../../../../../store/slices/cartSlice.ts";
+import {useAppDispatch} from "../../../../../store/hooks.ts";
 
 
-function CardPopupCart({image, wieght, name, price, quantity, id, decrease, increase,}: CardPopupCartProps) {
+function CardPopupCart({image, wieght, name, price, quantity, id}: Vegetables) {
+
+  const dispatch = useAppDispatch();
+
   return (
     <Card classNames={{root: style.cardRoot}}>
       <Group justify="space-between" >
@@ -36,9 +36,9 @@ function CardPopupCart({image, wieght, name, price, quantity, id, decrease, incr
           <Text classNames={{root: style.textPrice}}>$ {price}</Text>
         </Box>
         <Group justify="flex-end" gap={10} classNames={{root: style.groupActionIcon}}>
-          <ActionIcon onClick={() => {decrease(id)}} classNames={{root: style.buttonCount}} variant="filled" color="#dee2e6">{<Minus />}</ActionIcon>
+          <ActionIcon onClick={() => {dispatch(decreaseQuantity(id))}} classNames={{root: style.buttonCount}} variant="filled" color="#dee2e6">{<Minus />}</ActionIcon>
           <Text>{quantity}</Text>
-          <ActionIcon onClick={() => {increase(id)}} classNames={{root: style.buttonCount}} variant="filled" color="#dee2e6">{<Plus />}</ActionIcon>
+          <ActionIcon onClick={() => {dispatch(increaseQuantity(id))}} classNames={{root: style.buttonCount}} variant="filled" color="#dee2e6">{<Plus />}</ActionIcon>
         </Group>
       </Group>
     </Card>
